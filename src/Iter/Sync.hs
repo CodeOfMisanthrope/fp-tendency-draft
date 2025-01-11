@@ -7,6 +7,7 @@ module Iter.Sync
     iLast,
     iRepeat,
     iMap,
+    iCount
   )
 where
 
@@ -75,3 +76,7 @@ iRepeat count list
 iMap :: (a -> b) -> [a] -> [b]
 iMap _ [] = []
 iMap fn (x : xs) = fn x : iMap fn xs
+
+iCount :: [a] -> Int
+iCount [] = 0
+iCount (_:xs) = 1 + iCount xs
