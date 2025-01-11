@@ -4,6 +4,8 @@ module Iter.Sync
     iEnumerate,
     iFilter,
     iFirst,
+    iLast,
+    iRepeat
   )
 where
 
@@ -62,3 +64,9 @@ iLast (x : xs) =
   if length xs == 0
     then x
     else iLast xs
+
+iRepeat :: Int -> [a] -> [a]
+iRepeat _ [] = []
+iRepeat count list
+  | count <= 0 = []
+  | otherwise = list ++ iRepeat (count - 1) list
