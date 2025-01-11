@@ -1,7 +1,8 @@
 module Iter.Sync
   ( iTake,
     iEnumerate,
-    iFilter
+    iFilter,
+    iFirst
   )
 where
 
@@ -19,3 +20,6 @@ iFilter _ [] = []
 iFilter fn (x:xs) = if fn x
   then x : iFilter fn xs
   else iFilter fn xs
+
+iFirst :: [a] -> a
+iFirst (x:xs) = x
