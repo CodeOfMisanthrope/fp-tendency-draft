@@ -2,7 +2,7 @@ module Iter.Sync
   ( iTake,
     iEnumerate,
     iFilter,
-    iFirst
+    iFirst,
   )
 where
 
@@ -17,9 +17,16 @@ iEnumerate count (x : xs) = (x, count) : iEnumerate (count + 1) xs
 
 iFilter :: (a -> Bool) -> [a] -> [a]
 iFilter _ [] = []
-iFilter fn (x:xs) = if fn x
-  then x : iFilter fn xs
-  else iFilter fn xs
+iFilter fn (x : xs) =
+  if fn x
+    then x : iFilter fn xs
+    else iFilter fn xs
 
 iFirst :: [a] -> a
-iFirst (x:xs) = x
+iFirst (x : xs) = x
+
+iLast :: [a] -> a
+iLast (x : xs) =
+  if length xs == 0
+    then x
+    else iLast xs
