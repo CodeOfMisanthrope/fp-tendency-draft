@@ -59,13 +59,15 @@ iFilter fn (x : xs) =
     else iFilter fn xs
 
 -- todo Maybe
-iFirst :: [a] -> a
-iFirst (x : xs) = x
+iFirst :: [a] -> Maybe a
+iFirst [] = Nothing
+iFirst (x : xs) = Just x
 
-iLast :: [a] -> a
+iLast :: [a] -> Maybe a
+iLast [] = Nothing
 iLast (x : xs) =
-  if length xs == 0
-    then x
+  if null xs
+    then Just x
     else iLast xs
 
 iRepeat :: Int -> [a] -> [a]
