@@ -7,7 +7,8 @@ module Iter.Sync
     iLast,
     iRepeat,
     iMap,
-    iCount
+    iCount,
+    iSlice
   )
 where
 
@@ -80,3 +81,7 @@ iMap fn (x : xs) = fn x : iMap fn xs
 iCount :: [a] -> Int
 iCount [] = 0
 iCount (_:xs) = 1 + iCount xs
+
+iSlice :: Int -> Int -> [a] -> [a]
+iSlice _ _ [] = []
+iSlice start end list = take (end - start) (drop start list)
