@@ -58,11 +58,30 @@ iFilter fn (x : xs) =
     then x : iFilter fn xs
     else iFilter fn xs
 
--- todo Maybe
+-- | Returns the first element of a list wrapped in a 'Maybe'.
+-- If the list is empty, returns 'Nothing'.
+--
+-- Example:
+--
+-- >>> iFirst [1, 2, 3]
+-- Just 1
+--
+-- >>> iFirst []
+-- Nothing
 iFirst :: [a] -> Maybe a
 iFirst [] = Nothing
 iFirst (x : xs) = Just x
 
+-- | Returns the last element of a list wrapped in a 'Maybe'.
+-- If the list is empty, returns 'Nothing'.
+--
+-- Example:
+--
+-- >>> iLast [1, 2, 3]
+-- Just 3
+--
+-- >>> iLast []
+-- Nothing
 iLast :: [a] -> Maybe a
 iLast [] = Nothing
 iLast (x : xs) =
@@ -70,20 +89,62 @@ iLast (x : xs) =
     then Just x
     else iLast xs
 
+-- | Repeats a list a specified number of times.
+-- If the count is less than or equal to 0, an empty list is returned.
+--
+-- Example:
+--
+-- >>> iRepeat 2 [1, 2]
+-- [1, 2, 1, 2]
+--
+-- >>> iRepeat 0 [1, 2]
+-- []
 iRepeat :: Int -> [a] -> [a]
 iRepeat _ [] = []
 iRepeat count list
   | count <= 0 = []
   | otherwise = list ++ iRepeat (count - 1) list
 
+-- | Applies a function to each element of a list, returning a new list.
+--
+-- Example:
+--
+-- >>> iMap (*2) [1, 2, 3]
+-- [2, 4, 6]
+--
+-- >>> iMap show [1, 2, 3]
+-- ["1", "2", "3"]
 iMap :: (a -> b) -> [a] -> [b]
 iMap _ [] = []
 iMap fn (x : xs) = fn x : iMap fn xs
 
+-- | Counts the number of elements in a list.
+--
+-- Example:
+--
+-- >>> iCount [1, 2, 3]
+-- 3
+--
+-- >>> iCount []
+-- 0
 iCount :: [a] -> Int
 iCount [] = 0
 iCount (_:xs) = 1 + iCount xs
 
+-- | Returns a sublist from a list, starting from the 'start' index
+-- and ending before the 'end' index.
+-- If 'start' or 'end' is out of bounds, it handles those cases gracefully.
+--
+-- Example:
+--
+-- >>> iSlice 1 4 [0, 1, 2, 3, 4, 5]
+-- [1, 2, 3]
+--
+-- >>> iSlice 0 2 [1, 2, 3]
+-- [1, 2]
+--
+-- >>> iSlice 2 2 [1, 2, 3]
+-- []
 iSlice :: Int -> Int -> [a] -> [a]
 iSlice _ _ [] = []
 iSlice start end list = take (end - start) (drop start list)
